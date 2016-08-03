@@ -1,0 +1,86 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template leftpadding="0" rightpadding="0" toppadding="0" bottompadding="0" printdirection="0" paperheight="13.9" paperwidth="21" paperscale="70" tablerowheight="20">
+  <row xpath="0" ypath="0" repeatflag="false">
+    <cell cols="14" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@公司名称" systemcode="loginename" fontsize="25px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="1" repeatflag="false">
+    <cell cols="14" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@单据类型" systemcode="sheettype" fontsize="25px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="2" repeatflag="false">
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="调出仓库:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="3" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@调出仓库名称" systemcode="OutStockName" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="调拨单号:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@单据编号" systemcode="SheetID" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="1" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="日期:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="1" rows="1" border="" fontweight="" fontitalic="" fontunderline="" textalign="" content="" systemcode="" fontsize="" fontcolor="" backgroundcolor="" />
+    <cell cols="3" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@制单日期" systemcode="EditDate" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="3" repeatflag="false">
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="调入仓库:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="3" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@调入仓库名称" systemcode="InStockName" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="业务员:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@业务员" systemcode="Operator" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="相关单号:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="3" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@相关单号" systemcode="Sheetid" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="4" repeatflag="false">
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="摘要说明:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="12" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@摘要说明" systemcode="OperNotes" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="5" repeatflag="false">
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="备注:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="12" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="left" content="@备注" systemcode="notes" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="6" repeatflag="false">
+    <table>
+      <thead>
+        <tr>
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="序号" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="2" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="商品条码" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="4" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="商品名称" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="规格" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="单位" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="批号" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="调出数量" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="调入数量" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+          <td cols="2" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="备注" systemcode="" fontsize="14px" fontcolor="#000000" backgroundcolor="#c3d4db" />
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@序号" systemcode="LineNum" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="2" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@商品编码" systemcode="GoodsID" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="4" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@商品名称" systemcode="GoodsName" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@规格" systemcode="Spec" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@单位" systemcode="UName" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@成本" systemcode="Cost" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@调出总数" systemcode="OutTotQty" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="1" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@调入总数" systemcode="InTotQty" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+          <td cols="2" rows="1" border="all" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@备注" systemcode="Notes" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+        </tr>
+      </tbody>
+    </table>
+  </row>
+  <row xpath="1" ypath="8" repeatflag="false">
+    <cell cols="6" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@金额大写" systemcode="summoney,moneyUpperCase" fontsize="12px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="1" rows="1" border="" fontweight="" fontitalic="" fontunderline="" textalign="" content="" systemcode="" fontsize="" fontcolor="" backgroundcolor="" />
+    <cell cols="2" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@合计成本" systemcode="costvalue" fontsize="12px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="9" repeatflag="false">
+    <cell cols="1" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="制单人:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="3" rows="1" border="bottom" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@制单人" systemcode="Editor" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="1" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="仓管:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="bottom" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="1" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="送货人:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="bottom" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="1" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="签收:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="3" rows="1" border="bottom" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+  <row xpath="0" ypath="10" repeatflag="false">
+    <cell cols="7" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="【智店宝】让批发零售变得更简单！www.myimpos.com" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="2" rows="1" border="" fontweight="" fontitalic="" fontunderline="" textalign="" content="" systemcode="" fontsize="" fontcolor="" backgroundcolor="" />
+    <cell cols="1" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="打印时间:" systemcode="" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+    <cell cols="4" rows="1" border="" fontweight="400" fontitalic="" fontunderline="" textalign="center" content="@打印时间" systemcode="printdate" fontsize="14px" fontcolor="#286cd4" backgroundcolor="#000000" />
+  </row>
+</template>
+
