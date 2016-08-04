@@ -32,36 +32,66 @@ public class HSSFUtil {
 	    
 	    /****************** 单位换算约定  *******************/
 	    /**
-	     * 约定：1cm = 40px
+	     * 宽度约定：1cm = 40px
 	     * @param cm
 	     * @return
 	     */
-	    public static int cm40ToPX(String cm) {
+	    public static int cmWidthToPX(String cm) {
 	    	return (int) (Float.parseFloat(cm)*40);
 	    }
 	    /**
-	     * 约定：1mm = 4px
+	     * 宽度约定：1mm = 4px
 	     * @param cm
 	     * @return
 	     */
-	    public static int mm4ToPX(String mm) {
+	    public static int mmWidthToPX(String mm) {
 	    	return (int) (Float.parseFloat(mm)*4);
 	    }
 	    /**
-	     * 约定：1px = 1/40cm
+	     * 宽度约定：1px = 1/40cm
 	     * @return
 	     */
-	    public static double pxTo40CM(int px) {
+	    public static double pxToWidthCM(int px) {
 	    	return (px/40.0);
 	    }
 	    /**
-	     * 约定：1px = 1/4mm
+	     * 宽度约定：1px = 1/4mm
 	     * @return
 	     */
-	    public static double pxTo4MM(int px) {
+	    public static double pxToWidthMM(int px) {
 	    	return (px/4.0);
 	    }
-	    
+	    /******************/
+	    /**
+	     * 高度约定：1cm = 50px
+	     * @param cm
+	     * @return
+	     */
+	    public static int cmHeightToPX(String cm) {
+	    	return (int) (Float.parseFloat(cm)*50);
+	    }
+	    /**
+	     * 高度约定：1mm = 5px
+	     * @param cm
+	     * @return
+	     */
+	    public static int mmHeightToPX(String mm) {
+	    	return (int) (Float.parseFloat(mm)*5);
+	    }
+	    /**
+	     * 高度约定：1px = 1/50cm
+	     * @return
+	     */
+	    public static double pxToHeightCM(int px) {
+	    	return (px/50.0);
+	    }
+	    /**
+	     * 高度约定：1px = 1/5mm
+	     * @return
+	     */
+	    public static double pxToHeightMM(int px) {
+	    	return (px/5.0);
+	    }
 	    /****************** row高度单位转换  *******************/
 	    /**
 	     * row高度cm转换 height单位

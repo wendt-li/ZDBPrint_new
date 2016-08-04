@@ -18,12 +18,9 @@ import net.sf.json.JSONObject;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFPrintSetup;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
-import org.apache.poi.hssf.util.CellRangeAddress;
-import org.apache.poi.ss.util.RegionUtil;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -39,7 +36,6 @@ public class ExportExcelService {
 	 * 字体样式
 	 */
 	private Map<String, HSSFFont> fonts;
-	
 	/**
 	 * 单元格样式
 	 */
@@ -73,7 +69,7 @@ public class ExportExcelService {
 	 */
 	private int colsWidth;
 	/**
-	 * 所有行髙和 px (除去数据明细高)
+	 * 所有行髙和 px 
 	 */
 	private int rowsHeight;
 	/**
@@ -199,15 +195,15 @@ public class ExportExcelService {
 			paperwidth = setsJson.getDouble("paperwidth");
 		}
 		else {
-			paperwidth = HSSFUtil.cm40ToPX(setsJson.getString("paperheight"));
-			paperheight = HSSFUtil.cm40ToPX(setsJson.getString("paperwidth"));
+			paperwidth = setsJson.getDouble("paperheight");
+			paperheight = setsJson.getDouble("paperwidth");
 		}
 		double pwidth = paperwidth - ((setsJson.getDouble("leftpadding")/10.0) + (setsJson.getDouble("rightpadding")/10.0));
 		double pheight = paperheight - ((setsJson.getDouble("toppadding")/10.0) + (setsJson.getDouble("bottompadding")/10.0));
-		if (HSSFUtil.pxTo40CM(colsWidth) > pwidth) {
+		if (HSSFUtil.pxToWidthCM(colsWidth) > pwidth) {
 			throw new Exception("模板设计错误;原因: 所有列宽和大于整个页面宽度！（请注意打印方向）");
 		}
-		if (HSSFUtil.pxTo40CM(rowsHeight) > pheight) {
+		if (HSSFUtil.pxToHeightCM(rowsHeight) > pheight) {
 			throw new Exception("模板设计错误;原因: 所有行高和大于整个页面高度！（请注意打印方向）");
 		}
 		
@@ -323,7 +319,7 @@ public class ExportExcelService {
 		HSSFRow row = sheet.getRow(v);
 		if (row == null) {
 			 row = sheet.createRow(v);
-			 row.setHeight(HSSFUtil.cmToRowHeightUnit(HSSFUtil.pxTo40CM(rowObj.getInt("height"))));
+			 row.setHeight(HSSFUtil.cmToRowHeightUnit(HSSFUtil.pxToHeightCM(rowObj.getInt("height"))));
 		}
 
 		JSONArray cellList = rowObj.getJSONArray("list");
@@ -482,7 +478,7 @@ public class ExportExcelService {
 		HSSFRow row = sheet.getRow(q);
 		if (row == null) {
 			row = sheet.createRow(q);
-			row.setHeight(HSSFUtil.cmToRowHeightUnit(HSSFUtil.pxTo40CM(rowObj.getInt("height"))));
+			row.setHeight(HSSFUtil.cmToRowHeightUnit(HSSFUtil.pxToHeightCM(rowObj.getInt("height"))));
 		}
 		// 页注脚 10 ；汇总 20
 		int printType = 0;
@@ -752,13 +748,13 @@ public class ExportExcelService {
 			// 总页髙 - 上下边距
 			double v = paperheight - ((setsJson.getDouble("toppadding")/10.0) + (setsJson.getDouble("bottompadding")/10.0));
 			// 所有行髙和 cm （除去数据明细髙）
-			double qt = HSSFUtil.pxTo40CM(rowsHeight - datailHeight);
+			double qt = HSSFUtil.pxToHeightCM(rowsHeight - datailHeight);
 			// 表格标题髙 cm
-			double bt = HSSFUtil.pxTo40CM(reportTitleHeight);
+			double bt = HSSFUtil.pxToHeightCM(reportTitleHeight);
 			// 汇总高度 cm
-			double hz = HSSFUtil.pxTo40CM(accountHeight);
+			double hz = HSSFUtil.pxToHeightCM(accountHeight);
 			// 数据明细髙cm
-			double my = HSSFUtil.pxTo40CM(datailHeight);
+			double my = HSSFUtil.pxToHeightCM(datailHeight);
 			
 			if (repeatPageNum == 1) {
 				// 第一页条数
@@ -787,13 +783,13 @@ public class ExportExcelService {
 		// 总页髙 - 上下边距
 		double v = paperheight - ((setsJson.getDouble("toppadding")/10.0) + (setsJson.getDouble("bottompadding")/10.0));
 		// 所有行髙和 cm （除去数据明细髙）
-		double qt = HSSFUtil.pxTo40CM(rowsHeight - datailHeight);
+		double qt = HSSFUtil.pxToHeightCM(rowsHeight - datailHeight);
 		// 表格标题髙 cm
-		double bt = HSSFUtil.pxTo40CM(reportTitleHeight);
+		double bt = HSSFUtil.pxToHeightCM(reportTitleHeight);
 		// 汇总高度 cm
-		double hz = HSSFUtil.pxTo40CM(accountHeight);
+		double hz = HSSFUtil.pxToHeightCM(accountHeight);
 		// 数据明细髙cm
-		double my = HSSFUtil.pxTo40CM(datailHeight);
+		double my = HSSFUtil.pxToHeightCM(datailHeight);
 		
 		// 一页打完
 		int num = (int) ((v -qt) / my);

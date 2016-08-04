@@ -8,15 +8,12 @@
 package com.slic.service;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import net.sf.json.JSONObject;
-import net.sf.json.groovy.JsonGroovyBuilder;
 
 import com.slic.entity.Constant;
 import com.slic.entity.HeaderEntity;
-import com.slic.enums.PropertyTypeEnum;
 
 /**
  * 反序列化

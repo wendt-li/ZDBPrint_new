@@ -10,22 +10,21 @@ package com.slic.service;
 import java.io.UnsupportedEncodingException;
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 
+import net.sf.json.JSONArray;
+import net.sf.json.JSONObject;
+
 import com.slic.entity.Constant;
-import com.slic.entity.FieldsEntity;
-import com.slic.entity.ParamEntity;
 import com.slic.entity.DataBlockEntity;
 import com.slic.entity.DataEntity;
+import com.slic.entity.FieldsEntity;
+import com.slic.entity.ParamEntity;
 import com.slic.entity.RowSetEntity;
 import com.slic.entity.SendMsgEntity;
 import com.slic.enums.FieldTypeEnum;
 import com.slic.enums.PropertyTypeEnum;
-
-import net.sf.json.JSONArray;
-import net.sf.json.JSONObject;
 
 /**
  * <一句话功能简述>

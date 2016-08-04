@@ -24,6 +24,7 @@ import com.slic.dao.SocketClient;
 import com.slic.enums.ResponseCodeEnum;
 import com.slic.print.config.PrintConstants;
 import com.slic.service.ExportExcelService;
+import com.slic.utils.HSSFUtil;
 
 public class ExportExcelServlet extends HttpServlet {
 	private Logger logger = LoggerFactory.getLogger(getClass());
@@ -122,11 +123,11 @@ public class ExportExcelServlet extends HttpServlet {
 					
 					if (1 == exportExcelService.getSetsJson().getInt("printType")) {
 						int num = exportExcelService.getDetailTotalRows();
-						double rh = exportExcelService.getRowsHeight();
+						int rh = exportExcelService.getRowsHeight();
 						int dv_col = exportExcelService.getSetsJson().getJSONObject("printPriceTicket").getInt("col");
 						printFlag = 1;
 						msg = "标签打印返回的页面高度为";
-						_heigth = (Math.ceil((num -1)*1.0/dv_col)+1) * (rh/40.0) * 10;
+						_heigth = (Math.ceil((num -1)*1.0/dv_col)+1) * (HSSFUtil.pxToHeightCM(rh)) * 10;
 					}
 					else {
 						if (exportExcelService.getSetsJson().getBoolean("stopFight")) 
@@ -136,7 +137,7 @@ public class ExportExcelServlet extends HttpServlet {
 							JSONArray totalData = backDatas.getJSONArray("item_0");
 							// 分页行高度
 							double fh = 0.5 * totalData.size();
-							double dh = exportExcelService.getDatailHeight() / 40.0;
+							double dh = HSSFUtil.pxToHeightCM(exportExcelService.getDatailHeight());
 							int num = exportExcelService.getDetailTotalRows();
 							// 数据明细高度
 							double mx = dh * (num - 1);

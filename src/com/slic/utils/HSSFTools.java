@@ -160,7 +160,7 @@ public class HSSFTools{
 	 */
 	public static void setColumnWidth(HSSFSheet sheet, JSONArray colsJson) {
 		for (int i = 0, j = colsJson.size(); i < j; i++) {
-			int v = HSSFUtil.cmToSheetWidthUnit(HSSFUtil.pxTo40CM(colsJson.getJSONObject(i).getInt("width")));
+			int v = HSSFUtil.cmToSheetWidthUnit(HSSFUtil.pxToWidthCM(colsJson.getJSONObject(i).getInt("width")));
 			sheet.setColumnWidth(i, v);
 		}
 	}
