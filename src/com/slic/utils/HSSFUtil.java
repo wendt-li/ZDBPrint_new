@@ -51,15 +51,15 @@ public class HSSFUtil {
 	     * 约定：1px = 1/40cm
 	     * @return
 	     */
-	    public static String pxTo40CM(int px) {
-	    	return (px/40.0)+"";
+	    public static double pxTo40CM(int px) {
+	    	return (px/40.0);
 	    }
 	    /**
 	     * 约定：1px = 1/4mm
 	     * @return
 	     */
-	    public static String pxTo4MM(int px) {
-	    	return (px/4.0)+"";
+	    public static double pxTo4MM(int px) {
+	    	return (px/4.0);
 	    }
 	    
 	    /****************** row高度单位转换  *******************/
@@ -68,18 +68,18 @@ public class HSSFUtil {
 	     * @param cm
 	     * @return
 	     */
-	    public static short cmToRowHeightUnit(String cm) {
+	    public static short cmToRowHeightUnit(double cm) {
 	    	//return (short) (Float.parseFloat(cm)*14.56*40);
-	    	return (short) (Float.parseFloat(cm)/2.54*72*20);
+	    	return (short) (cm/2.54*72*20);
 	    }
 	    /**
 	     * row高度mm转换 height单位
 	     * @param mm
 	     * @return
 	     */
-	    public static short mmToRowHeightUnit(String mm) {
+	    public static short mmToRowHeightUnit(double mm) {
 	    	//return (short) (Float.parseFloat(mm)*14.56*4);
-	    	return (short) (Float.parseFloat(mm)/2.54*72*2);
+	    	return (short) (mm/2.54*72*2);
 	    }
 	    
 	    /****************** sheet列宽单位转换  *******************/
@@ -88,16 +88,16 @@ public class HSSFUtil {
 	     * @param cm
 	     * @return
 	     */
-	    public static int cmToSheetWidthUnit(String cm) {
-	    	return (int) (Float.parseFloat(cm)*36.1*40);
+	    public static int cmToSheetWidthUnit(double cm) {
+	    	return (int) (cm*36.1*40);
 	    }
 	    /**
 	     * sheet宽度mm转换 width单位 
 	     * @param mm
 	     * @return
 	     */
-	    public static int mmToSheetWidthUnit(String mm) {
-	    	return (int) (Float.parseFloat(mm)*36.1*4);
+	    public static int mmToSheetWidthUnit(double mm) {
+	    	return (int) (mm*36.1*4);
 	    }
 	    
 	    /****************** sheet边距单位转换  *******************/

@@ -43,5 +43,7 @@ public class sss {
 			System.out.println("--");
 		}
 	    
+	    System.out.println("123".indexOf("1"));
+	    
 	}
 }

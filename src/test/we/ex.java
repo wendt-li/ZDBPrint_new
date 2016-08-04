@@ -43,7 +43,7 @@ public class ex {
 		
 		// 14.56 * 40 =1cm; 14.56 * 20 = 0.5cm
 //		row5.setHeight((short) (14.56 * 20));
-		row5.setHeight((short) HSSFUtil.cmToRowHeightUnit("2"));
+		row5.setHeight((short) HSSFUtil.cmToRowHeightUnit(2));
 //		row5.setHeightInPoints((float)(2/2.54*72));
 //		row5.setHeight((short)(2/2.54*72*20));
 		
@@ -53,7 +53,7 @@ public class ex {
 		// 40px * 36.2 =1cm; 20px * 36.2 = 0.5cm 
 		short v = (short) (34.5 * 80); 	
 		sheet.setColumnWidth(0, v);    // 1400 = 1cm =40px
-	    sheet.setColumnWidth(1, HSSFUtil.cmToSheetWidthUnit("0.5"));    
+	    sheet.setColumnWidth(1, HSSFUtil.cmToSheetWidthUnit(0.5));    
 	    sheet.setColumnWidth(2, 1800);  
 		sheet.setMargin(HSSFSheet.TopMargin, HSSFUtil.mmToSheetMarginUnit(3));//1 = 2.5cm  0.4 = 1cm
 		sheet.setMargin(HSSFSheet.BottomMargin, HSSFUtil.mmToSheetMarginUnit(3));// ҳ�߾ࣨ�£�

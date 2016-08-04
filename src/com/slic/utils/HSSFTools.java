@@ -197,23 +197,22 @@ public class HSSFTools{
 	 * @param fonts 
 	 */
 	public static void setCellStyle(HSSFWorkbook workbook, HSSFSheet sheet,
-			HSSFCell cell, JSONObject cellObj, int dv_row, int dv_col, int zirow, int zicol, Map<String, HSSFFont> fonts, Map<String, HSSFCellStyle> cellStyles) {
-		// 本该开始行序
+			HSSFCell cell, JSONObject cellObj, int dv_row, int dv_col,
+			int zirow, int zicol, Map<String, HSSFFont> fonts,
+			Map<String, HSSFCellStyle> cellStyles) {
+		
 		int startRow = cellObj.getInt("row") + (dv_row * zirow);
-		// 本该结束行序
 		int endRow = cellObj.getInt("endRow") + (dv_row * zirow);
 		int startCol = cellObj.getInt("col") + (dv_col * zicol);
 		int endCol = cellObj.getInt("endCol") + (dv_col * zicol);
 
 		CellRangeAddress cellRangeAddress = new CellRangeAddress(startRow, endRow, startCol, endCol);
-		
-		// 合并单元格居中
 		sheet.addMergedRegion(cellRangeAddress);
 
 		String key = cellObj.getString("row") + "-" + cellObj.getString("col");
 		JSONObject sytleObj = cellObj.getJSONObject("style");
 		// HSSFCellStyle 设定单元格风格;
-		HSSFCellStyle style = setCellStyle(workbook, sytleObj, key,fonts,cellStyles);
+		HSSFCellStyle style = setCellStyle(workbook, sytleObj, key, fonts, cellStyles);
 		cell.setCellStyle(style);
 
 		setBorder(cellObj, cellRangeAddress, sheet, workbook);
