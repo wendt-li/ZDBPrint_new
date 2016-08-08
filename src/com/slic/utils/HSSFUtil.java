@@ -119,7 +119,7 @@ public class HSSFUtil {
 	     * @return
 	     */
 	    public static int cmToSheetWidthUnit(double cm) {
-	    	return (int) (cm*36.1*40);
+	    	return (int) (cm*32.6*40);
 	    }
 	    /**
 	     * sheet宽度mm转换 width单位 
@@ -127,7 +127,7 @@ public class HSSFUtil {
 	     * @return
 	     */
 	    public static int mmToSheetWidthUnit(double mm) {
-	    	return (int) (mm*36.1*4);
+	    	return (int) (mm*32.6*4);
 	    }
 	    
 	    /****************** sheet边距单位转换  *******************/

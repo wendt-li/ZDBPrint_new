@@ -169,6 +169,12 @@ public class ExportExcelService {
 		setsJson = templateJson.getJSONObject("printSetting");
 		colsJson = templateJson.getJSONArray("cols");
 		rowsJson = templateJson.getJSONArray("rows");
+		
+		// 默认下边距15mm
+		if (setsJson.getInt("bottompadding") < 15) {
+			setsJson.put("bottompadding", 15);
+		}
+		
 		// 统计cell总宽
 		colsWidth = 0;
 		for (int i = 0, j = colsJson.size(); i < j; i++) {
@@ -198,6 +204,15 @@ public class ExportExcelService {
 			paperwidth = setsJson.getDouble("paperheight");
 			paperheight = setsJson.getDouble("paperwidth");
 		}
+		
+		// 标签打印
+		if (1 == setsJson.getInt("printType")) {
+			diviRow = setsJson.getJSONObject("printPriceTicket").getInt("row");
+			diviCol = setsJson.getJSONObject("printPriceTicket").getInt("col");
+			zirow = setsJson.getJSONObject("printPriceTicket").getInt("zirow") + 1;
+			zicol = setsJson.getJSONObject("printPriceTicket").getInt("zicol") + 1;
+		}
+		
 		double pwidth = paperwidth - ((setsJson.getDouble("leftpadding")/10.0) + (setsJson.getDouble("rightpadding")/10.0));
 		double pheight = paperheight - ((setsJson.getDouble("toppadding")/10.0) + (setsJson.getDouble("bottompadding")/10.0));
 		if (HSSFUtil.pxToWidthCM(colsWidth) > pwidth) {
@@ -207,13 +222,6 @@ public class ExportExcelService {
 			throw new Exception("模板设计错误;原因: 所有行高和大于整个页面高度！（请注意打印方向）");
 		}
 		
-		// 标签打印
-		if (1 == setsJson.getInt("printType")) {
-			diviRow = setsJson.getJSONObject("printPriceTicket").getInt("row");
-			diviCol = setsJson.getJSONObject("printPriceTicket").getInt("col");
-			zirow = setsJson.getJSONObject("printPriceTicket").getInt("zirow")+1;
-			zicol = setsJson.getJSONObject("printPriceTicket").getInt("zicol")+1;
-		}
 		workbook = new HSSFWorkbook();
 		fonts = new HashMap<String, HSSFFont>();
 		cellStyles = new HashMap<String, HSSFCellStyle>();
@@ -287,7 +295,7 @@ public class ExportExcelService {
 			// 设置模版打印基础信息
 			HSSFTools.initPrintSytle(sheet, setsJson);
 			// 设置sheet各列宽
-			HSSFTools.setColumnWidth(sheet, colsJson);
+			HSSFTools.setColumnWidth(sheet, colsJson, diviCol, zicol);
 		}
 		// 循环打印数据
 		for (int i = 0, j = itemsData.size(); i < j; i++) {
@@ -383,6 +391,10 @@ public class ExportExcelService {
 			// 打印公司名称
 			else if ("ename".equals(systemCode)) {
 				cell.setCellValue(userJson.getString("ename"));
+			}
+			// 普通字段
+			else if (mainData.containsKey(systemCode)) {
+				cell.setCellValue(mainData.getString(systemCode));
 			}
 			// 普通字段
 			else if (jsonData.containsKey(systemCode)) {
@@ -711,6 +723,9 @@ public class ExportExcelService {
 	
 	private void page(JSONObject mainData, String execlSheetName) throws Exception
 	{
+//		fonts = new HashMap<String, HSSFFont>();
+//		cellStyles = new HashMap<String, HSSFCellStyle>();
+		rowIndex = 0;
 		repeatPageNum++;
 		// 未打印row数
 		int remainRows = detailTotalRows - itemBeginIndex;
@@ -725,11 +740,11 @@ public class ExportExcelService {
 		// 是否最后一页
 		if (remainRows <= pageRows) {
 			isLastPage = true;
-			doPagePrint(mainData, newItemsData, execlSheetName);
+			doPagePrint(mainData, newItemsData, execlSheetName + "_" + repeatPageNum);
 			return;
 		}
 		// 继续分页
-		doPagePrint(mainData, newItemsData, execlSheetName);
+		doPagePrint(mainData, newItemsData, execlSheetName + "_" + repeatPageNum);
 		itemBeginIndex += pageRows;
 		page(mainData, execlSheetName);
 	}
@@ -856,7 +871,7 @@ public class ExportExcelService {
 			addOneRow(sheet, mainData, rowObj);
 		}
 		// 添加本页分页符
-		sheet.setRowBreak(rowIndex - 1);
+		//sheet.setRowBreak(rowIndex - 1);
 	}
 	
 	/**
@@ -878,7 +893,7 @@ public class ExportExcelService {
 				double giftqty = Double.parseDouble(temp.getString("giftqty"));
 				if (giftqty > 0) 
 				{
-					JSONObject gift = JSONObject.fromObject(temp.toString());
+					JSONObject gift = temp;
 					double packunitqty = Double.parseDouble(temp.getString("packunitqty"));
 					DecimalFormat df = new DecimalFormat("######0.0000");
 					String bulkqty = df.format( (giftqty % packunitqty));

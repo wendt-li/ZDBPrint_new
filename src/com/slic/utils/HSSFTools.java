@@ -33,22 +33,30 @@ public class HSSFTools{
 		int endRow = cellObj.getInt("endRow");
 		int startCol = cellObj.getInt("col");
 		int endCol = cellObj.getInt("endCol");
-	//	System.out.println("=======!!!!!!!=========现在行xu:"+newRow+" 开始row："+startRow+"结束row："+endRow+"开始cell："+startCol+"结束cell:"+endCol);
-		CellRangeAddress cellRangeAddress;
-		if (newRow > startRow) {
-			// 相差行序
-			int ibs = newRow - startRow;
-			cellRangeAddress = new CellRangeAddress((startRow + ibs), (endRow + ibs), startCol, endCol);
-		} else {
-			cellRangeAddress = new CellRangeAddress(startRow, endRow, startCol, endCol);
-		}
+		
+		// 相差行序
+		int ibs = newRow - startRow;
+//		System.out.println("==================> 合并:"+ (startRow + ibs)+ ", "+(endRow + ibs)+ ", "+startCol+ ", "+endCol);
+		
 		// 合并单元格居中
+		CellRangeAddress cellRangeAddress = new CellRangeAddress((startRow + ibs), (endRow + ibs), startCol, endCol);
 		sheet.addMergedRegion(cellRangeAddress);
 
-		String key = cellObj.getString("row") + "-" + cellObj.getString("col");
+		String key = cellObj.getString("row") + "-" + cellObj.getString("col") + "-" + cellObj.getString("endRow") + "-" + cellObj.getString("endCol");
+		System.out.println("========> key: " + key);
 		JSONObject sytleObj = cellObj.getJSONObject("style");
 		// HSSFCellStyle 设定单元格风格;
-		HSSFCellStyle style = setCellStyle(workbook, sytleObj, key,fonts,cellStyles);
+		HSSFCellStyle style = setCellStyle(workbook, sytleObj, key,cellStyles);
+		
+		String fontsKey = sytleObj.getString("family") + "-"
+				+ sytleObj.getString("size") + "-"
+				+ sytleObj.getString("bold") + "-"
+				+ sytleObj.getString("underLine") + "-"
+				+ sytleObj.getString("italic");
+		// 设置字体
+		HSSFFont font = setFont(workbook,sytleObj,fontsKey,fonts);
+		style.setFont(font);
+		
 		cell.setCellStyle(style);
 		
 		setBorder(cellObj, cellRangeAddress, sheet, workbook);
@@ -78,26 +86,18 @@ public class HSSFTools{
 		}
 	}
 
-	private static HSSFCellStyle setCellStyle(HSSFWorkbook workbook, JSONObject sytleObj, String key, Map<String, HSSFFont> fonts, Map<String, HSSFCellStyle> cellStyles) {
+	private static HSSFCellStyle setCellStyle(HSSFWorkbook workbook, JSONObject sytleObj, String key, Map<String, HSSFCellStyle> cellStyles) {
 		HSSFCellStyle cellStyle = null;
-		if (cellStyles == null) 
-		{
-			cellStyles = new HashMap<String, HSSFCellStyle>();
-		}
-		else 
-		{
-			cellStyle = cellStyles.get(key);
-		}
+		cellStyle = cellStyles.get(key);
 		
-		if (cellStyle == null)
+		if (cellStyle != null)
 		{
-			cellStyle = workbook.createCellStyle();
-			cellStyles.put(key, cellStyle);
+			return cellStyle;
+			
 		} 
-		else 
-		{
-			cellStyle = cellStyles.get(key);
-		}
+		
+		cellStyle = workbook.createCellStyle();
+		cellStyles.put(key, cellStyle);
 
 		// 单元格垂直对齐方式 0 居上 1 居中 2 居下 3 正当
 		cellStyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);
@@ -112,10 +112,6 @@ public class HSSFTools{
 			align = HSSFCellStyle.ALIGN_CENTER;
 		}
 		cellStyle.setAlignment(align);
-		// 设置字体
-		HSSFFont font = setFont(workbook,sytleObj,key,fonts);
-		cellStyle.setFont(font);
-
 		return cellStyle;
 	}
 	/**
@@ -125,10 +121,6 @@ public class HSSFTools{
 	 * @return
 	 */
 	private static HSSFFont setFont(HSSFWorkbook workbook, JSONObject sytleObj, String key, Map<String, HSSFFont> fonts) {
-		if (fonts == null) 
-		{
-			fonts = new HashMap<String, HSSFFont>();
-		}
 		HSSFFont font;
 		font = fonts.get(key);
 		if (font != null)
@@ -139,8 +131,6 @@ public class HSSFTools{
 		font = workbook.createFont();
 		fonts.put(key, font);
 		
-		font.setFontName("宋体");
-		// HSSFFont 创建 xls 中的字体;
 		font.setFontHeightInPoints((short) sytleObj.getInt("size")); //字体高度
         //font.setColor(HSSFFont.COLOR_RED); //字体颜色
 		font.setBoldweight(sytleObj.getBoolean("bold") ? HSSFFont.BOLDWEIGHT_BOLD : HSSFFont.BOLDWEIGHT_NORMAL); //粗细
@@ -162,6 +152,19 @@ public class HSSFTools{
 		for (int i = 0, j = colsJson.size(); i < j; i++) {
 			int v = HSSFUtil.cmToSheetWidthUnit(HSSFUtil.pxToWidthCM(colsJson.getJSONObject(i).getInt("width")));
 			sheet.setColumnWidth(i, v);
+		}
+	}
+	
+	/**
+	 * 设置每列列宽
+	 * @param colsJson 
+	 */
+	public static void setColumnWidth(HSSFSheet sheet, JSONArray colsJson, int diviCol, int zicol) {
+		for (int i = 0, j = colsJson.size(); i < j; i++) {
+			int v = HSSFUtil.cmToSheetWidthUnit(HSSFUtil.pxToWidthCM(colsJson.getJSONObject(i).getInt("width")));
+			for (int k = 0; k < diviCol; k++) {
+				sheet.setColumnWidth(i + k * zicol, v);
+			}
 		}
 	}
 	
@@ -209,10 +212,20 @@ public class HSSFTools{
 		CellRangeAddress cellRangeAddress = new CellRangeAddress(startRow, endRow, startCol, endCol);
 		sheet.addMergedRegion(cellRangeAddress);
 
-		String key = cellObj.getString("row") + "-" + cellObj.getString("col");
+		String key = cellObj.getString("row") + "-" + cellObj.getString("col") + "-" + cellObj.getString("endRow") + "-" + cellObj.getString("endCol");
 		JSONObject sytleObj = cellObj.getJSONObject("style");
 		// HSSFCellStyle 设定单元格风格;
-		HSSFCellStyle style = setCellStyle(workbook, sytleObj, key, fonts, cellStyles);
+		HSSFCellStyle style = setCellStyle(workbook, sytleObj, key,cellStyles);
+		
+		String fontsKey = sytleObj.getString("family") + "-"
+				+ sytleObj.getString("size") + "-"
+				+ sytleObj.getString("bold") + "-"
+				+ sytleObj.getString("underLine") + "-"
+				+ sytleObj.getString("italic");
+		// 设置字体
+		HSSFFont font = setFont(workbook,sytleObj,fontsKey,fonts);
+		style.setFont(font);
+		
 		cell.setCellStyle(style);
 
 		setBorder(cellObj, cellRangeAddress, sheet, workbook);

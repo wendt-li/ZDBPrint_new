@@ -220,6 +220,6 @@ public class ExportExcelServlet extends HttpServlet {
 	{
 		String sendData = "{'msgId':260,'AreaID':441904,'datalist_HeadFields':['RCType'],'datalist':[{'RCType':5}]}";
 		String source = SocketClient.send("192.168.10.196", 9601, sendData);
-		System.out.println(source);
+		//System.out.println(source);
 	}
 }
