@@ -881,21 +881,25 @@ public class ExportExcelService {
 	 */
 	private JSONArray retCountItems(JSONArray itemsData)
 	{
+		DecimalFormat df = new DecimalFormat("######0.0000");
+		// 详情数据arr
 		JSONArray newItemsData = new JSONArray();
 		for (int i = 0, len = itemsData.size(); i < len; i++) 
 		{
 			JSONObject temp = itemsData.getJSONObject(i);
+			String bulkqtyValue = df.format( temp.getDouble("bulkqty"));
+			temp.put("bulkqty", bulkqtyValue);
+			
 			newItemsData.add(temp);
 			
 			// 如果为手动赠送,复制一条记录
-			if (temp.containsKey("giftqty") && "0".equals(temp.getString("giftflag")))
+			if (temp.containsKey("giftflag") && "0".equals(temp.getString("giftflag")))
 			{
-				double giftqty = Double.parseDouble(temp.getString("giftqty"));
+				double giftqty = temp.getDouble("giftqty");
 				if (giftqty > 0) 
 				{
 					JSONObject gift = temp;
-					double packunitqty = Double.parseDouble(temp.getString("packunitqty"));
-					DecimalFormat df = new DecimalFormat("######0.0000");
+					double packunitqty = temp.getDouble("packunitqty");
 					String bulkqty = df.format( (giftqty % packunitqty));
 				    String packqty = df.format((giftqty / packunitqty));
 					gift.put("bulkqty", bulkqty);
@@ -910,7 +914,6 @@ public class ExportExcelService {
 			}
 		}
 
-		List<JSONObject> list = new ArrayList<JSONObject>();
 		// 收送赠品处理
 		for (int i = 0, len = newItemsData.size(); i < len; i++)
 		{
@@ -918,11 +921,10 @@ public class ExportExcelService {
 			// 如果为赠品,把价格等置0
 			if (temp.containsKey("giftflag") && "1".equals(temp.getString("giftflag")))
 			{
-				double giftqty = Double.parseDouble(temp.getString("giftqty"));
-				double packunitqty = Double.parseDouble(temp.getString("packunitqty"));
-				DecimalFormat df = new DecimalFormat("######0.0000");
+				double giftqty = temp.getDouble("giftqty");
+				double packunitqty = temp.getDouble("packunitqty");
 				String bulkqty = df.format( (giftqty % packunitqty));
-			    String packqty = df.format((giftqty / packunitqty));
+				int packqty = (int)Math.floor((giftqty / packunitqty));
 				temp.put("bulkqty", bulkqty);
 				temp.put("packqty", packqty);
 				temp.put("packprice", 0);
@@ -930,11 +932,6 @@ public class ExportExcelService {
 				temp.put("sumqty", giftqty);
 				temp.put("summoney", 0);
 			}
-		}
-		// 把赠品结果放入结果集
-		if (list.size() > 0) 
-		{
-			newItemsData.addAll(list);
 		}
 
 		JSONArray result = new JSONArray();
